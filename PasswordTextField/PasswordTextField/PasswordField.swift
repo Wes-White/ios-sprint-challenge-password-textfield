@@ -10,7 +10,7 @@ import UIKit
 
 class PasswordField: UIControl {
     
-
+    
     enum PasswordStrength: String {
         case weak = "Weak"
         case medium = "Medium"
@@ -65,14 +65,62 @@ class PasswordField: UIControl {
         textField.layer.borderColor = textFieldBorderColor.cgColor
         textField.layer.borderWidth = 2.0
         textField.clipsToBounds = true
-        
+        textField.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
-        textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin),
-        textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin),
-        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin),
-        textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight)
+            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin),
+            textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight)
+            
         ])
+        
+        //MARK: Weak Indicator
+        addSubview(weakView)
+        weakView.translatesAutoresizingMaskIntoConstraints = false
+        weakView.backgroundColor = weakColor
+        weakView.layer.cornerRadius = 3
+        
+        //MARK: Medium Indicator
+        addSubview(mediumView)
+        mediumView.translatesAutoresizingMaskIntoConstraints = false
+        mediumView.backgroundColor = unusedColor
+        mediumView.layer.cornerRadius = 3
+        
+        //MARK: Strong Indicator
+        addSubview(strongView)
+        strongView.translatesAutoresizingMaskIntoConstraints = false
+        strongView.backgroundColor = unusedColor
+        strongView.layer.cornerRadius = 3
+        
+        NSLayoutConstraint.activate([
+            weakView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            weakView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            
+            mediumView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            mediumView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            
+            strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width)
+            
+        ])
+        
+        // MARK: StackView for Indicators
+        let stackView = UIStackView(arrangedSubviews: [weakView, mediumView, strongView])
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.axis = .horizontal
+        stackView.spacing = standardMargin
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: standardMargin * 2),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -standardMargin * 2)
+        ])
+        
+        
     }
     
     
