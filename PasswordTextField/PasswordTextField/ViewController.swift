@@ -19,12 +19,19 @@ class ViewController: UIViewController {
     // the little cloud download button to install it. Then just stop the app
     // and comment this method out again. This step only needs to run once.
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        // Uncomment this portion to set up the dictionary
-//        let str = "lambda"
-//        let referenceVC = UIReferenceLibraryViewController(term: str)
-//        present(referenceVC, animated: true, completion: nil)
-//    }
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //
+    //        // Uncomment this portion to set up the dictionary
+    //        let str = "lambda"
+    //        let referenceVC = UIReferenceLibraryViewController(term: str)
+    //        present(referenceVC, animated: true, completion: nil)
+    //    }
+    
+    @IBAction func printPassword(_ password: PasswordField) {
+        
+        print("Password: \(password.password)")
+        print("Password Strength: \(password.passwordStrength.rawValue)")
+    }
+    
 }
