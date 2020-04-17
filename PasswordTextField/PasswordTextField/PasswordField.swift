@@ -10,6 +10,13 @@ import UIKit
 
 class PasswordField: UIControl {
     
+
+    enum PasswordStrength: String {
+        case weak = "Weak"
+        case medium = "Medium"
+        case strong = "Strong"
+    }
+    
     // Public API - these properties are used to fetch the final password and strength values
     private (set) var password: String = ""
     
@@ -40,10 +47,36 @@ class PasswordField: UIControl {
     
     func setup() {
         // Lay out your subviews here
+        backgroundColor = bgColor
         
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Enter Password"
+        titleLabel.font = labelFont
+        titleLabel.textColor = labelTextColor
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: standardMargin), titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin)       ])
+        
+        addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
+        textField.layer.borderColor = textFieldBorderColor.cgColor
+        textField.layer.borderWidth = 2.0
+        textField.clipsToBounds = true
+        
+        
+        NSLayoutConstraint.activate([
+        textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin),
+        textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: standardMargin),
+        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin),
+        textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight)
+        ])
     }
+    
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
